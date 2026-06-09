@@ -3,7 +3,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-# 後端超級旅遊資料庫（大幅擴充：每個國家 8 個，共 24 個巨量數據）
+# 後端超級旅遊資料庫（每個國家 8 個，共 24 個巨量數據）
 TRAVEL_DATA = {
     "taiwan": [
         # 地標名勝
@@ -54,7 +54,7 @@ def get_layout(content, active_page=""):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>東北亞旅遊大數據助手 | 林靖淏</title>
+        <title>台灣/日本/韓國 旅遊大數據助手 | 林靖淏</title>
         <style>
             * {{ box-sizing: border-box; margin: 0; padding: 0; }}
             body {{ font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", sans-serif; display: flex; background-color: #0f172a; color: #f8fafc; min-height: 100vh; }}
@@ -62,7 +62,7 @@ def get_layout(content, active_page=""):
             /* 進階側邊導覽列（Sidebar） */
             .sidebar {{ width: 280px; background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); border-right: 1px solid #334155; padding: 30px 0; display: flex; flex-direction: column; position: fixed; height: 100vh; z-index: 100; }}
             .sidebar-header {{ padding: 0 25px 25px 25px; border-bottom: 1px solid #334155; text-align: center; }}
-            .sidebar-header h2 {{ font-size: 1.5rem; color: #38bdf8; font-weight: 800; letter-spacing: 1px; }}
+            .sidebar-header h2 {{ font-size: 1.4rem; color: #38bdf8; font-weight: 800; letter-spacing: 1px; line-height: 1.4; }}
             .sidebar-header p {{ font-size: 0.85rem; color: #94a3b8; margin-top: 8px; font-weight: bold; }}
             .nav-links {{ list-style: none; margin-top: 30px; }}
             .nav-links a {{ display: flex; align-items: center; padding: 14px 25px; color: #94a3b8; text-decoration: none; font-weight: 600; font-size: 1.05rem; transition: all 0.25s ease; }}
@@ -105,7 +105,7 @@ def get_layout(content, active_page=""):
     <body>
         <div class="sidebar">
             <div class="sidebar-header">
-                <h2>🧳 東北亞大數據助手</h2>
+                <h2>🇹🇼🇯🇵🇰🇷<br>台日韓旅遊助手</h2>
                 <p>文化資管 2A 林靖淏</p>
             </div>
             <ul class="nav-links">
@@ -130,14 +130,14 @@ def get_layout(content, active_page=""):
 def home():
     content = '''
         <div class="card" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-left: 6px solid #38bdf8; padding: 45px;">
-            <h1 style="font-size: 2.8rem; background: linear-gradient(to right, #ffffff, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">東北亞跨國旅遊決策探索助手</h1>
+            <h1 style="font-size: 2.8rem; background: linear-gradient(to right, #ffffff, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">台灣、日本、韓國 旅遊決策探索助手</h1>
             <p style="font-size: 1.2rem; color: #cbd5e1; margin-top: 10px;">本系統由資管系 2A 林靖淏 獨立開發。完美實作後端多維度數據過濾演算法，打造兼具科技感與跨國實用價值的動態網頁應用。</p>
             <br>
             <a href="/explore" class="btn">進入數據大廳 🚀</a>
         </div>
         <div class="card">
-            <h2>🛸 系統開發與巨量數據庫解析</h2>
-            <p>本系統跳脫傳統的靜態 HTML 網頁，全面採用 <strong>Python Flask 動態後端引擎</strong> 作為核心驅動。為了展現系統在高併發與多檔案檢索下的效能，本專案建構了高達 24 筆跨國核心旅遊大數據（包含台灣、日本、韓國）。</p>
+            <h2>🛸 系統開發與多國數據架構解析</h2>
+            <p>本系統跳脫傳統的靜態 HTML 網頁，全面採用 <strong>Python Flask 動態後端引擎</strong> 作為核心驅動。為了展現系統在高併發與多檔案檢索下的效能，本專案建構了高達 24 筆核心旅遊大數據，完整涵蓋了<strong>台灣、日本、韓國</strong>三大熱門國家。</p>
             <p>當使用者點擊不同的國家或分類標籤時，系統透過 URL 發送結構化的條件請求（Parameters）。伺服器端的 Python 會即時啟動高效能的過濾演算法（List Comprehension），動態拼接出包含當地景點特色描述與即時關注熱度（Hot Rate）的精美玻璃流光卡片。這極大地展現了資管系在前後端資料互動上的專業實踐能力。</p>
         </div>
     '''
@@ -155,7 +155,7 @@ def explore():
         spots = [s for s in spots if s['category'] == category]
         
     content = f'''
-        <h1>🔍 東北亞跨國景點數據中心</h1>
+        <h1>🔍 台灣/日本/韓國 景點數據中心</h1>
         <p>點選不同的國家與熱門主題標籤，體驗 Python 後端動態篩選跨國巨量數據的流暢效率：</p>
         
         <div class="filter-section">
@@ -177,7 +177,7 @@ def explore():
     '''
     
     if not spots:
-        content += '<p style="grid-column: 1/-1; text-align: center; color: #64748b; padding: 50px;">🔍 後端資料庫查無符合此分類的跨國景點數據。</p>'
+        content += '<p style="grid-column: 1/-1; text-align: center; color: #64748b; padding: 50px;">🔍 後端資料庫查無符合此分類的景點數據。</p>'
     else:
         for spot in spots:
             content += f'''
@@ -212,7 +212,7 @@ def skills():
         </div>
         <div class="card">
             <h3 style="color: #34d399; margin-bottom: 8px;">2. 跨國巨量數據庫與篩選演算法</h3>
-            <p>我在後端實作了動態條件篩選。為了模擬真實企業系統，我建構了高達 24 筆完整格式的旅遊數據。透過 <code>request.args.get()</code> 攔截瀏覽器傳來的參數（國家與分類），並使用 Python 的清單解析式（List Comprehension）對多維度結構化字典進行秒級過濾。此外，我還增加了景點關注熱度數據（Hot Rate），完美展現了後端資料處理的邏輯思維。</p>
+            <p>我在後端實作了動態條件篩選。為了模擬真實企業系統，我建構了高達 24 筆完整格式的旅遊數據（涵蓋台灣、日本、韓國）。透過 <code>request.args.get()</code> 攔截瀏覽器傳來的參數（國家與分類），並使用 Python 的清單解析式（List Comprehension）對多維度結構化字典進行秒級過濾。此外，我還增加了景點關注熱度數據（Hot Rate），完美展現了後端資料處理的邏輯思維。</p>
         </div>
         <div class="card">
             <h3 style="color: #f59e0b; margin-bottom: 8px;">3. 軟體工程 CI/CD 開發流</h3>
