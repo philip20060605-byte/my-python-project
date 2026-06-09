@@ -19,10 +19,13 @@ def get_header(title):
             nav a {{ color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 1.1rem; transition: color 0.3s; }}
             nav a:hover {{ color: #3498db; }}
             .container {{ max-width: 800px; margin: 4px auto; padding: 40px 20px; }}
-            .card {{ background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }}
+            .card {{ background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; border-left: 5px solid #3498db; }}
             h1 {{ color: #2c3e50; margin-bottom: 20px; font-size: 2.2rem; }}
             h2 {{ color: #34495e; margin-top: 20px; margin-bottom: 10px; }}
-            p {{ margin-bottom: 15px; color: #555; font-size: 1.1rem; }}
+            h3 {{ color: #2c3e50; margin-bottom: 10px; font-size: 1.3rem; }}
+            p {{ margin-bottom: 15px; color: #555; font-size: 1.1rem; text-align: justify; }}
+            ul {{ margin-left: 20px; margin-bottom: 15px; color: #666; }}
+            li {{ margin-bottom: 5px; }}
             .btn {{ display: inline-block; background-color: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background 0.3s; border: none; cursor: pointer; }}
             .btn:hover {{ background-color: #2980b9; }}
             .skills {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }}
@@ -56,7 +59,7 @@ def get_footer():
 def home():
     html = get_header("林靖淏的期末成果首頁")
     html += '''
-        <div class="card" style="text-align: center;">
+        <div class="card" style="text-align: center; border-left: none;">
             <h1>歡迎來到我的 Python 期末成果應用程式</h1>
             <p style="font-size: 1.3rem; color: #7f8c8d;">網頁開發、雲端部署與架構實踐</p>
             <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
@@ -95,27 +98,39 @@ def about():
     html += get_footer()
     return html
 
-# 3. 學習心得路由
+# 3. 學習心得路由 (★此次大幅擴充技術細節與心得，適合講述 5 分鐘以上★)
 @app.route('/skills')
 def skills():
     html = get_header("Python 學習心得成果")
     html += '''
-        <h1>📚 本學期 Python 核心學習成果</h1>
-        <p>在這次的專題開發中，我將這學期學到的三大核心知識做了整合：</p>
+        <h1>📚 本學期 Python 核心學習成果與架構心得</h1>
+        <p style="color: #7f8c8d; margin-bottom: 30px;">在此頁面中，我將深入探討本專案開發過程中所涉及的核心技術與理論實踐：</p>
         
-        <div class="card">
-            <h3>1. 後端邏輯與路由控制 (Routing)</h3>
-            <p>理解伺服器如何接收瀏覽器的 HTTP 請求，並透過 Python 的裝飾器功能，精準地將不同的網址（URL）分流給對應的函式處理，實現動態網頁的切換。</p>
+        <div class="card" style="border-left-color: #3498db;">
+            <h3>核心知識一：後端邏輯與動態路由控制 (Routing)</h3>
+            <p>在傳統的靜態網頁中，每一個頁面都需要一個獨立的 HTML 檔案，管理起來非常不方便。而透過本學期學到的 Python Flask 微型網頁框架，我學會了如何使用<strong>「路由裝飾器（Route Decorators）」</strong>來動態控制網頁行為。</p>
+            <p>例如，當使用者連線到主網址、關於我、或是提交聯絡表單時，後端 Python 程式會自動進行事件監聽，並將請求分流給對應的視圖函式（View Functions）。這讓我深刻體會到資管系在軟體開發中所強調的「模組化設計」與「代碼高重用性」。</p>
         </div>
         
-        <div class="card">
-            <h3>2. 生產環境與雲端適應</h3>
-            <p>學習到本地端測試環境（Development）與雲端生產環境（Production）的差異。透過調整動態連接埠（Port），讓網站能夠完美適應現代雲端主機的規範。</p>
+        <div class="card" style="border-left-color: #9b59b6;">
+            <h3>核心知識二：HTTP 請求方法與前後端資料交互 (GET & POST)</h3>
+            <p>這學期最重要的突破之一，就是理解了瀏覽器與伺服器之間是如何透過網路協議溝通的。在這個專案的『互動聯絡』功能中，我成功實作了雙向交互機制：</p>
+            <ul>
+                <li><strong>GET 請求：</strong>當使用者點擊頁面時，伺服器主動發送精美的表單介面供使用者檢視。</li>
+                <li><strong>POST 請求：</strong>當使用者輸入完姓名、評語並按下送出，Python 後端會利用 <code>request.form</code> 接收資料並動態處理，不需要刷新整個網頁，就能給予使用者即時的回饋。這對於未來學習電子商務系統或資料庫互動打下了扎實的基礎。</li>
+            </ul>
         </div>
         
-        <div class="card">
-            <h3>3. DevOps 開發流程體驗</h3>
-            <p>透過 GitHub 網頁管理程式碼，並與 Render 平台進行 webhook 連動。達成了「代碼即部署」的現代開發精神，省去了傳統繁瑣的伺服器架設時間。</p>
+        <div class="card" style="border-left-color: #e67e22;">
+            <h3>核心知識三：生產環境與雲端環境適應性 (WSGI Server)</h3>
+            <p>在本地端電腦測試時，我們通常只使用 Flask 內建的測試伺服器。但在資管的系統管理視角中，系統必須具備高併發與穩定性。因此在部署到 Render 雲端平台時，我引入了 <strong>Gunicorn（WSGI 伺服器）</strong>。</p>
+            <p>此外，雲端主機的外網連接埠（Port）是系統動態隨機分配的。為了修正這個問題，我特別在主程式利用 <code>os.environ.get('PORT')</code> 來讀取系統環境變數。這個調優的經驗讓我明白，寫好程式只是第一步，如何讓系統適應不同的生產環境才是工程師的考驗。</p>
+        </div>
+        
+        <div class="card" style="border-left-color: #2ecc71;">
+            <h3>核心知識四：DevOps 雲端自動化整合與部署 (CI/CD)</h3>
+            <p>最後，是關於開發工具鏈的整合。本專案完全顛覆了傳統本地開發的繁瑣。我透過 GitHub 網頁版管理所有的原始碼（`app.py`、`requirements.txt`、`Procfile`），並利用 Webhook 整合技術與 Render 免費雲端平台進行連動。</p>
+            <p>這達成了一種現代軟體開發非常推崇的 <strong>CI/CD（持續整合/持續部署）</strong> 精神。這意味著未來我只要在 GitHub 上進行任何程式碼的修改或優化，雲端伺服器在幾秒鐘內就會自動抓取、自動建置、自動上線，大大降低了維運的成本，讓我對雲端運算的威力有了第一線的認識。</p>
         </div>
     '''
     html += get_footer()
@@ -144,7 +159,7 @@ def contact():
         '''
     else:
         html += '''
-            <div class="card">
+            <div class="card" style="border-left-color: #e74c3c;">
                 <h1>✉️ 互動成果評分表單</h1>
                 <p>老師好！請在下方輸入您的姓名與對本網站專案的評語或點評，點擊送出後，網頁將展示 Python 後端即時接收並動態渲染資料的成果：</p>
                 <form method="POST" action="/contact">
